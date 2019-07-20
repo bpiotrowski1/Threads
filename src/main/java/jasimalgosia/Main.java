@@ -7,9 +7,15 @@ public class Main {
 
         jas.start();
         malgosia.start();
-        while (jas.isAlive() || malgosia.isAlive()) {
-            Thread.sleep(1000);
-        }
+
+//        SAD :((((
+//        while (jas.isAlive() || malgosia.isAlive()) {
+//            Thread.sleep(1000);
+//        }
+//        System.out.println("Koniec dnia!");
+
+        jas.join();
+        malgosia.join();
         System.out.println("Koniec dnia!");
     }
 }
