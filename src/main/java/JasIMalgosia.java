@@ -1,7 +1,4 @@
 public class JasIMalgosia {
-    private static volatile boolean jasKoniec = false;
-    private static volatile boolean malgosiaKoniec = false;
-
     public static void main(String[] args) throws InterruptedException {
         Thread jas = new Thread(new Runnable() {
             @Override
@@ -21,7 +18,6 @@ public class JasIMalgosia {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                jasKoniec = true;
             }
         });
 
@@ -43,13 +39,12 @@ public class JasIMalgosia {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                malgosiaKoniec = true;
             }
         });
 
         jas.start();
         malgosia.start();
-        while (!jasKoniec || !malgosiaKoniec) {
+        while (jas.isAlive() || malgosia.isAlive()) {
             Thread.sleep(1000);
         }
         System.out.println("Koniec dnia!");
