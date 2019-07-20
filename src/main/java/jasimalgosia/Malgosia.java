@@ -1,6 +1,14 @@
 package jasimalgosia;
 
+import java.util.concurrent.CountDownLatch;
+
 public class Malgosia implements Runnable {
+    private CountDownLatch latch;
+
+    Malgosia(CountDownLatch latch) {
+        this.latch = latch;
+    }
+
     @Override
     public void run() {
         try {
@@ -15,6 +23,7 @@ public class Malgosia implements Runnable {
             System.out.println("Malgosia ubrala sie\nMalgosia spotyka sie z kolezanka...");
             Thread.sleep(25000);
             System.out.println("Malgosia spotkala sie z kolezanka");
+            latch.countDown();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
