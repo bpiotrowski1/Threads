@@ -1,4 +1,4 @@
-public class Main {
+public class WatkiMain {
     public static void main(String[] args) throws InterruptedException {
         Thread t = new Thread(new Runnable() {
             @Override
