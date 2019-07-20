@@ -1,21 +1,28 @@
 package jasimalgosia;
 
+import java.util.concurrent.CountDownLatch;
+
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        Thread jas = new Thread(new Jas());
-        Thread malgosia = new Thread(new Malgosia());
+        CountDownLatch latch = new CountDownLatch(2);
+        Thread jas = new Thread(new Jas(latch));
+        Thread malgosia = new Thread(new Malgosia(latch));
 
         jas.start();
         malgosia.start();
+
+        latch.await();
 
 //        SAD :((((
 //        while (jas.isAlive() || malgosia.isAlive()) {
 //            Thread.sleep(1000);
 //        }
-//        System.out.println("Koniec dnia!");
 
-        jas.join();
-        malgosia.join();
+//        OK
+//        jas.join();
+//        malgosia.join();
+
+
         System.out.println("Koniec dnia!");
     }
 }
