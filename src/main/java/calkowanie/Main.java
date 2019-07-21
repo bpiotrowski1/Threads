@@ -14,7 +14,7 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         long startTime = System.nanoTime();
-        System.out.println("Calka = " + calkuj());
+        System.out.println("Calka = " + calkuj(xp, n, dx));
         System.out.println("Liczenie zajelo: " + (System.nanoTime() - startTime) / Math.pow(10, 9));
 
         startTime = System.nanoTime();
@@ -26,12 +26,13 @@ public class Main {
         ExecutorService threadPool = Executors.newFixedThreadPool(4);
         final AtomicDouble calka = new AtomicDouble(0.0);
 
-        for (int i = 1; i <= n; i++) {
-            final int finalI = i;
+        for (int i = 0; i < 15; i++) {
+            final double startPrzedzialu = xp + i;
             threadPool.submit(new Runnable() {
                 @Override
                 public void run() {
-                    calka.getAndAdd(function(xp + finalI * dx));
+                    double malaCalka = calkuj(startPrzedzialu, n / 15, dx / 3);
+                    calka.getAndAdd(malaCalka);
                 }
             });
         }
@@ -42,13 +43,13 @@ public class Main {
         return calka;
     }
 
-    private static double calkuj() {
+    private static double calkuj(double startX, double prosotkatow, double szerokosc) {
         double calka = 0;
 
-        for (int i = 1; i <= n; i++) {
-            calka += function(xp + i * dx);
+        for (int i = 1; i <= prosotkatow; i++) {
+            calka += function(startX + i * szerokosc);
         }
-        calka *= dx;
+        calka *= szerokosc;
 
         return calka;
     }
