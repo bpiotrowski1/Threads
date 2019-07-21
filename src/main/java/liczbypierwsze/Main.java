@@ -21,7 +21,7 @@ public class Main {
             threadPool.submit(new Runnable() {
                 @Override
                 public void run() {
-                    if (isPrimeOptimalized(number)) {
+                    if (isPrimeOptimized(number)) {
                         liczbPierwszych.incrementAndGet();
                     }
                 }
@@ -47,7 +47,7 @@ public class Main {
         return true;
     }
 
-    private static boolean isPrimeOptimalized(long liczba) {
+    private static boolean isPrimeOptimized(long liczba) {
         if (liczba < 2) {
             return false;
         }
